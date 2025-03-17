@@ -387,7 +387,13 @@ export type NotificationContent = {
     /**
      * Data associated with the notification, not displayed
      */
-    data: Record<string, any>;
+    data: {
+        [key: string]: unknown;
+    };
+    /**
+     * The identifier of the notification’s category.
+     */
+    categoryIdentifier: string | null;
     sound: 'default' | 'defaultCritical' | 'custom' | null;
 } & (NotificationContentIos | NotificationContentAndroid);
 /**
@@ -414,10 +420,6 @@ export type NotificationContentIos = {
      * The number the system adds to the notification summary when the notification represents multiple items.
      */
     summaryArgumentCount?: number;
-    /**
-     * The identifier of the notification’s category.
-     */
-    categoryIdentifier: string | null;
     /**
      * The identifier that groups related notifications.
      */
@@ -507,7 +509,7 @@ export type NotificationContentInput = {
     /**
      * Data associated with the notification, not displayed.
      */
-    data?: Record<string, any>;
+    data?: Record<string, unknown>;
     /**
      * Application badge number associated with the notification.
      */
@@ -708,4 +710,22 @@ export type MaybeNotificationResponse = NotificationResponse | null | undefined;
  * */
 export type Subscription = EventSubscription;
 export { PermissionExpiration, PermissionResponse, EventSubscription, PermissionStatus, } from 'expo-modules-core';
+/**
+ * Payload for the background notification handler task.
+ * [Read more](https://docs.expo.dev/versions/latest/sdk/notifications/#run-javascript-in-response-to-incoming-notifications)
+ * */
+export type NotificationTaskPayload = NotificationResponse | {
+    notification: Record<string, unknown> | null;
+    data: {
+        /**
+         * The data payload of the notification, as JSON string.
+         */
+        dataString?: string;
+        [key: string]: unknown;
+    };
+    /**
+     * @platform ios
+     */
+    aps?: Record<string, unknown>;
+};
 //# sourceMappingURL=Notifications.types.d.ts.map
