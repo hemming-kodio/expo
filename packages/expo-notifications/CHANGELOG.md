@@ -10,6 +10,9 @@
 
 ### 🐛 Bug fixes
 
+- correctly include `NotificationContent.data` in `NotificationHandler`
+
+
 ### 💡 Others
 
 ## 0.30.4 — 2025-04-14
